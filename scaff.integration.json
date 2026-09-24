@@ -1,0 +1,24 @@
+{
+  "kode": "supabase",
+  "version": "1.0.0",
+  "frameworks": ["nextjs"],
+  "files": [
+    { "src": "lib/supabase/client.ts", "dest": "lib/supabase/client.ts" },
+    { "src": "lib/supabase/server.ts", "dest": "lib/supabase/server.ts" },
+    { "src": "proxy.ts", "dest": "proxy.ts" }
+  ],
+  "dependencies": {
+    "npm": {
+      "@supabase/supabase-js": "^2.0.0",
+      "@supabase/ssr": "^0.5.0"
+    }
+  },
+  "env": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
+  "setup": "SETUP-FRAGMENT.md",
+  "removal": {
+    "files": ["lib/supabase/client.ts", "lib/supabase/server.ts", "proxy.ts"],
+    "env": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
+    "stepsFile": "REMOVE.md"
+  },
+  "conflicts": []
+}
