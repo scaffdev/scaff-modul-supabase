@@ -1,11 +1,12 @@
 {
   "kode": "supabase",
   "version": "1.0.0",
-  "frameworks": ["nextjs"],
+  "frameworks": ["nextjs", "laravel"],
   "files": [
-    { "src": "lib/supabase/client.ts", "dest": "lib/supabase/client.ts" },
-    { "src": "lib/supabase/server.ts", "dest": "lib/supabase/server.ts" },
-    { "src": "proxy.ts", "dest": "proxy.ts" }
+    { "src": "lib/supabase/client.ts", "dest": "lib/supabase/client.ts", "frameworks": ["nextjs"] },
+    { "src": "lib/supabase/server.ts", "dest": "lib/supabase/server.ts", "frameworks": ["nextjs"] },
+    { "src": "proxy.ts", "dest": "proxy.ts", "frameworks": ["nextjs"] },
+    { "src": "app/Services/SupabaseService.php", "dest": "app/Services/SupabaseService.php", "frameworks": ["laravel"] }
   ],
   "dependencies": {
     "npm": {
@@ -16,7 +17,7 @@
   "env": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
   "setup": "SETUP-FRAGMENT.md",
   "removal": {
-    "files": ["lib/supabase/client.ts", "lib/supabase/server.ts", "proxy.ts"],
+    "files": ["lib/supabase/client.ts", "lib/supabase/server.ts", "proxy.ts", "app/Services/SupabaseService.php"],
     "env": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
     "stepsFile": "REMOVE.md"
   },

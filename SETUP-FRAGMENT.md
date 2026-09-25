@@ -51,3 +51,40 @@ if (!claims) redirect("/login");
 **Proxy** (`proxy.ts` di root) sudah otomatis refresh session tiap request —
 tidak perlu diubah. Bila template-mu Next.js ≤15, rename jadi `middleware.ts`
 (lihat NOTED di dalam file).
+
+---
+
+## Setup Laravel (base Laravel)
+
+> CLI menyuntik `SupabaseService` (PostgREST via HTTP client, tanpa SDK).
+> Tidak ada Controller — panggil service dari controller-mu sendiri.
+
+### L1. Isi `.env` (nama SAMA dengan Next.js)
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://xyzcompany.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...
+```
+
+### L2. Tambah ke `config/services.php`
+
+```php
+'supabase' => [
+    'url' => env('NEXT_PUBLIC_SUPABASE_URL'),
+    'anon_key' => env('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
+],
+```
+
+### L3. Pakai di controller-mu
+
+```php
+use App\Services\SupabaseService;
+
+public function index(SupabaseService $supabase)
+{
+    // NOTED: $table dari input user WAJIB whitelist di controller.
+    return response()->json($supabase->table('todos'));
+}
+```
+
+Lalu `php artisan config:clear`.

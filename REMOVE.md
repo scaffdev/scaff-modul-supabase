@@ -60,6 +60,45 @@ grep -ri "supabase" app lib components proxy.ts middleware.ts 2>/dev/null
 
 ## B. Template Laravel
 
-Modul ini v1.0.0 mendukung Next.js saja. File `laravel/` berstatus STAGED
-(belum disuntik CLI) sehingga tidak ada yang perlu dicopot.
-Berlaku mulai v1.1.0 — panduan section B akan ditambahkan saat itu.
+### B.1. Hapus file (aman — tidak dipakai kode lain)
+
+- `app/Services/SupabaseService.php` — client PostgREST Supabase.
+
+```bash
+rm "app/Services/SupabaseService.php"
+```
+
+### B.2. Hapus env (dari `.env`)
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+NOTED: nama env SAMA dengan Next.js (satu sumber kebenaran = manifest).
+Prefix `NEXT_PUBLIC_` di Laravel tidak berpengaruh apa-apa — hanya nama.
+Hapus barisnya, jangan dikosongkan saja.
+
+### B.3. Bersihkan dependency
+
+Tidak ada dependency tambahan (modul ini memakai HTTP client Laravel).
+
+### B.4. Verifikasi (wajib lolos semua)
+
+```bash
+composer install --no-dev
+php artisan config:clear
+```
+
+```bash
+grep -ri "supabase" app routes resources config
+```
+
+- Install harus sukses tanpa error.
+- Grep harus menghasilkan **0 baris**. Bila masih ada sisa, ganti dulu
+  sumber datanya, lalu verifikasi ulang.
+- Hapus juga blok `supabase` di `config/services.php` bila kamu menambahkannya.
+
+### B.5. Yang JANGAN dihapus (Laravel)
+
+- Model Eloquent generik, migrasi skema, view auth umum.
+- `config/services.php` itu sendiri (cukup hapus blok `supabase`-nya),
+  `composer.json`, `.env` (cukup hapus baris env-nya).

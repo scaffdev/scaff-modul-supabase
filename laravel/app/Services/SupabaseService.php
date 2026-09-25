@@ -5,10 +5,10 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 
 /**
- * Service Supabase (PostgREST) — STAGED untuk dukungan Laravel (aktif di v1.1.0).
+ * Service Supabase (PostgREST) — disuntik Scaffdev Builder ke template Laravel.
  *
  * NOTED:
- * - File ini BELUM disuntik CLI (manifest v1.0.0 frameworks: ["nextjs"]).
+ * - File ini 100% milik modul "supabase" (lihat scaff.integration.json).
  * - Tidak ada SDK resmi PHP — best practice memakai REST langsung:
  *   {url}/rest/v1/{tabel} dengan header `apikey` + `Authorization: Bearer`.
  *   Ref: https://supabase.com/docs/guides/api
@@ -21,7 +21,7 @@ class SupabaseService
     {
         $url = config('services.supabase.url');
         $key = config('services.supabase.anon_key');
-        abort_if(empty($url) || empty($key), 500, 'Isi SUPABASE_URL & SUPABASE_ANON_KEY');
+        abort_if(empty($url) || empty($key), 500, 'Isi NEXT_PUBLIC_SUPABASE_URL & NEXT_PUBLIC_SUPABASE_ANON_KEY');
 
         return Http::baseUrl(rtrim($url, '/') . '/rest/v1')
             ->withHeaders(['apikey' => $key, 'Authorization' => "Bearer {$key}"])

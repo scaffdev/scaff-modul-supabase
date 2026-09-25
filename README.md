@@ -7,7 +7,7 @@ Disuntik via `scaff ... --with=supabase` (CLI 0.2.0+).
 | Framework | Status | Isi |
 |---|---|---|
 | Next.js | ✅ v1.0.0 | Browser client + server client + proxy refresh session |
-| Laravel | 🟡 STAGED (v1.1.0) | Service PostgREST sudah ditulis, belum disuntik CLI |
+| Laravel | ✅ v1.0.0 | Service PostgREST (HTTP client) |
 
 ## Struktur
 
@@ -19,7 +19,7 @@ scaff-modul-supabase/
 ├── nextjs/
 │   ├── lib/supabase/{client.ts,server.ts}
 │   └── proxy.ts             ← rename jadi middleware.ts bila Next ≤15
-└── laravel/                 ← STAGED untuk v1.1.0
+└── laravel/                 ← sumber untuk base Laravel
     └── app/Services/SupabaseService.php
 ```
 
