@@ -20,8 +20,9 @@ class SupabaseService
     protected function client(): \Illuminate\Http\Client\PendingRequest
     {
         $url = config('services.supabase.url');
-        $key = config('services.supabase.anon_key');
-        abort_if(empty($url) || empty($key), 500, 'Isi NEXT_PUBLIC_SUPABASE_URL & NEXT_PUBLIC_SUPABASE_ANON_KEY');
+        // NOTED: canonical = publishable key; anon key legacy sebagai fallback.
+        $key = config('services.supabase.publishable_key', config('services.supabase.anon_key'));
+        abort_if(empty($url) || empty($key), 500, 'Isi NEXT_PUBLIC_SUPABASE_URL & NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY');
 
         return Http::baseUrl(rtrim($url, '/') . '/rest/v1')
             ->withHeaders(['apikey' => $key, 'Authorization' => "Bearer {$key}"])

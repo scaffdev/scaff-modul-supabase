@@ -7,15 +7,14 @@
 
 1. Daftar/login di https://supabase.com/dashboard → **New project**.
 2. Buka **Settings → API** (atau dialog **Connect**), salin **Project URL**
-   dan **anon key**.
-   NOTED: project BARU memakai **publishable key** (`sb_publishable_...`)
-   sebagai pengganti anon key — taruh di env yang sama di bawah, tetap jalan.
+   dan **publishable key** (`sb_publishable_...`). Project lama yang masih
+   memakai **anon key** tetap jalan (fallback otomatis).
 
 ### 2. Isi env + install dependency
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://xyzcompany.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 ```
 
 ```bash
@@ -35,8 +34,9 @@ const supabase = createClient();
 const { data } = await supabase.from("todos").select();
 ```
 
-NOTED: `@/lib/...` di contoh ini = `lib/...` dari modul. Sesuaikan dengan
-alias import di template-mu (relatif `../../lib/...` bila tanpa alias).
+NOTED: `@/lib/...` di contoh ini = `lib/...` dari modul. Tanpa alias,
+pakai path relatif dari file-mu ke root (mis. route di `app/api/X/Y/`
+→ `../../../../lib/...`; satu level lebih dalam → tambah satu `..`).
 
 **Server Component / Server Action / Route Handler:**
 
@@ -63,7 +63,7 @@ tidak perlu diubah. Bila template-mu Next.js ≤15, rename jadi `middleware.ts`
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://xyzcompany.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 ```
 
 ### L2. Tambah ke `config/services.php`
@@ -71,7 +71,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...
 ```php
 'supabase' => [
     'url' => env('NEXT_PUBLIC_SUPABASE_URL'),
-    'anon_key' => env('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
+    'publishable_key' => env('NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY', env('NEXT_PUBLIC_SUPABASE_ANON_KEY')),
 ],
 ```
 

@@ -27,7 +27,8 @@ rm lib/supabase/client.ts lib/supabase/server.ts proxy.ts
 ### A.2. Hapus env (dari `.env.local`)
 
 - `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` (bila masih memakai nama legacy)
 
 Hapus barisnya, jangan dikosongkan saja.
 
@@ -71,7 +72,8 @@ rm "app/Services/SupabaseService.php"
 ### B.2. Hapus env (dari `.env`)
 
 - `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` (bila masih memakai nama legacy)
 
 NOTED: nama env SAMA dengan Next.js (satu sumber kebenaran = manifest).
 Prefix `NEXT_PUBLIC_` di Laravel tidak berpengaruh apa-apa — hanya nama.

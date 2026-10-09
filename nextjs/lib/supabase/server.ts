@@ -15,9 +15,11 @@ import { cookies } from "next/headers";
 
 function env(): { url: string; key: string } {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  // NOTED: canonical = PUBLISHABLE_KEY (sb_publishable_...). ANON_KEY legacy
+  // masih didukung sebagai fallback sampai akhir 2026 (lihat docs API keys).
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) {
-    throw new Error("MISSING_ENV: isi NEXT_PUBLIC_SUPABASE_URL & NEXT_PUBLIC_SUPABASE_ANON_KEY di .env.local");
+    throw new Error("MISSING_ENV: isi NEXT_PUBLIC_SUPABASE_URL & NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY di .env.local");
   }
   return { url, key };
 }
@@ -37,7 +39,7 @@ export async function createClient() {
       getAll() {
         return cookieStore.getAll();
       },
-      setAll(cookiesToSet) {
+      setAll(cookiesToSet, _headers) {
         try {
           // NOTED: Server Component tidak boleh menulis cookie — blok ini
           // hanya jalan di Server Action / Route Handler. Error diabaikan

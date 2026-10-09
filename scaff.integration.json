@@ -1,6 +1,7 @@
 {
   "kode": "supabase",
   "version": "1.0.0",
+  "docsUrl": "https://supabase.com/docs/guides/auth/server-side/nextjs",
   "frameworks": ["nextjs", "laravel"],
   "files": [
     { "src": "lib/supabase/client.ts", "dest": "lib/supabase/client.ts", "frameworks": ["nextjs"] },
@@ -11,14 +12,14 @@
   "dependencies": {
     "npm": {
       "@supabase/supabase-js": "^2.0.0",
-      "@supabase/ssr": "^0.5.0"
+      "@supabase/ssr": "^0.12.0"
     }
   },
-  "env": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
+    "env": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"],
   "setup": "SETUP-FRAGMENT.md",
   "removal": {
     "files": ["lib/supabase/client.ts", "lib/supabase/server.ts", "proxy.ts", "app/Services/SupabaseService.php"],
-    "env": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
+  "env": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"],
     "stepsFile": "REMOVE.md"
   },
   "conflicts": []
